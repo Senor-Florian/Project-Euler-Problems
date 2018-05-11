@@ -4,6 +4,7 @@ For example, 2143 is a 4-digit pandigital and is also prime.
 What is the largest n-digit pandigital prime that exists?
  */
 
+import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -20,19 +21,17 @@ public class Problem41 {
     }
 
     public boolean isPandigital(long n){
-        Set<Character> set= new TreeSet<>();
-        Set<Character> digits = new TreeSet<>();
-        String string = n+"";
-        for(int i = 1; i <= string.length(); i++) {
-            digits.add((char)i);
+        String str = Long.toString(n);
+        int[] digits = new int[str.length()];
+        for(int i=0; i<str.length(); i++){
+            digits[i] = str.charAt(i)-'0';
         }
-        for (char c:string.toCharArray()){
-            if(c == '0') {
+        Arrays.sort(digits);
+        for(int i=0; i<digits.length; i++){
+            if(digits[i]!=i+1)
                 return false;
-            }
-            set.add(c);
         }
-        return set.size() == string.length();
+        return true;
     }
 
     public boolean isPrime(long n) {
